@@ -1,10 +1,6 @@
 [TOC]
 
-
-
 ---
-
-
 
 # 一、Docker简介
 
@@ -14,13 +10,19 @@
 
 1.2 建议，Git相关知识 git pull
 
+
+
 ## 2、课程时间
 
 1.5天。
 
+
+
 ## 3、课程定位和范围
 
 立足JavaEE。
+
+
 
 ## 4、Docker是什么
 
@@ -56,6 +58,8 @@
 
 > 解决了运行环境和配置问题软件容器，方便做持续集成并有助于整体发布的容器虚拟化技术。
 
+
+
 ## 5、Docker能干嘛
 
 ### 5.1 之前的虚拟机技术
@@ -74,14 +78,14 @@
 
 > 由于前面虚拟机存在这些缺点，Linux 发展出了另一种虚拟化技术：Linux 容器(Linux Containers，缩写为LXC)。
 >
-> **Linux容器不是模拟一个完整的操作系统**，而是对进程进行隔离。有了容器，就可以将软件运行所需的所有资源打包到一个隔离的容器中。容器与虚拟机不同，不需要捆绑一整套操作系统，只需要软件工作所需的库资源和设置。系统因此而变得高效轻量并保证部署在任何环境中的软件都能始终如一地运行。
+> ==Linux容器不是模拟一个完整的操作系统==，而是对进程进行隔离。有了容器，就可以将软件运行所需的所有资源打包到一个隔离的容器中。容器与虚拟机不同，不需要捆绑一整套操作系统，只需要软件工作所需的库资源和设置。系统因此而变得高效轻量并保证部署在任何环境中的软件都能始终如一地运行。
 
 ![容器虚拟化技术](https://cdn.jsdelivr.net/gh/zacharyZ-at/PicGo-repo@main/Docker%E5%AD%A6%E4%B9%A0/%E5%AE%B9%E5%99%A8%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF.png)
 
 > 比较Docker和传统虚拟化方式的不同之处：
 >
 > - 传统虚拟机技术是虚拟出一套硬件后，在其上运行一个完整的操作系统，在该系统上再运行所需应用进程。
-> - 而容器内的应用进程直接运行于宿主的内核，容器内没有自己的内核，**而且也没有进行硬件虚拟**。因此容器要比传统虚拟机更为轻便。
+> - 而容器内的应用进程直接运行于宿主的内核，容器内没有自己的内核，==而且也没有进行硬件虚拟==。因此容器要比传统虚拟机更为轻便。
 > - 每个容器之间互相隔离，每个容器有自己的文件系统，容器之间进程不会相互影响，能区分计算资源。
 >
 
@@ -108,6 +112,8 @@
 
 > **Docker是内核级虚拟化**，其不像传统的虚拟化技术一样需要额外的Hypervisor支持，所以在一台物理机上可以运行很多个容器实例，可大大提升物理服务器的CPU和内存的利用率。
 
+
+
 ## 6、Docker去哪下载
 
 ### 6.1 官网
@@ -123,6 +129,8 @@
 >
 
 ---
+
+
 
 # 二、Docker安装
 
@@ -160,6 +168,8 @@ uname命令用于打印当前系统相关信息（内核版本号、硬件架构
 
 ![查看已安装的CentOS版本信息2](https://cdn.jsdelivr.net/gh/zacharyZ-at/PicGo-repo@main/Docker%E5%AD%A6%E4%B9%A0/%E6%9F%A5%E7%9C%8B%E5%B7%B2%E5%AE%89%E8%A3%85%E7%9A%84CentOS%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF2.png)
 
+
+
 ## 2、Docker的基本组成
 
 ### 2.1 Docker架构图
@@ -168,29 +178,29 @@ uname命令用于打印当前系统相关信息（内核版本号、硬件架构
 
 ### 2.2 镜像（image）
 
-> Docker镜像（Image）就是一个**只读**的模板。镜像可以用来创建Docker容器，**一个镜像可以创建很多容器**。
+> Docker镜像（Image）就是一个**只读**的模板。镜像可以用来创建Docker容器，==一个镜像可以创建很多容器==。
 >
 
 ![Docker的容器与镜像类比Java](https://cdn.jsdelivr.net/gh/zacharyZ-at/PicGo-repo@main/Docker%E5%AD%A6%E4%B9%A0/Docker%E7%9A%84%E5%AE%B9%E5%99%A8%E4%B8%8E%E9%95%9C%E5%83%8F%E7%B1%BB%E6%AF%94Java.png)
 
 ### 2.3 容器（container）
 
-> Docker利用容器？（Container）独立运行的一个或一组应用。**容器是用镜像创建的运行实例。**
+> Docker利用容器？（Container）独立运行的一个或一组应用。==容器是用镜像创建的运行实例==。
 >
 > 它可以被启动、开始、停止、删除。每个容器都是相互隔离的、保证安全的平台。
 >
-> **可以把容器看做是一个简易版的Linux环境**（包括root用户权限、进程空间、用户空间和网络空间等）和运行在其中的应用程序。
+> ==可以把容器看做是一个简易版的Linux环境==（包括root用户权限、进程空间、用户空间和网络空间等）和运行在其中的应用程序。
 >
 > 容器的定义和镜像几乎一模一样，也是一堆层的统一视角，唯一区别在于容器的最上面那一层是可读可写的。
 >
 
 ### 2.4 仓库（repository）
 
-> 仓库（Repository）是**集中存放镜像**文件的场所。
+> 仓库（Repository）是==集中存放镜像==文件的场所。
 >
 > 仓库（Repository）和仓库注册服务器（Registry）是有区别的。仓库注册服务器上往往存放着多个仓库，每个仓库中又包含了多镜像，每个镜像有不同的标签（tag）。
 >
-> 仓库分为公开仓库（Public）和私有仓库（Private）两种形式。**最大的公开仓库是Docker Hub(https://hub.docker.com/)** 存放了数量庞大的镜像供用户下载。国内的公开仓库包括阿里云、网易云等。
+> 仓库分为公开仓库（Public）和私有仓库（Private）两种形式。==最大的公开仓库是Docker Hub(https://hub.docker.com/)== 存放了数量庞大的镜像供用户下载。国内的公开仓库包括阿里云、网易云等。
 >
 
 ### 2.5 总结
@@ -205,6 +215,8 @@ uname命令用于打印当前系统相关信息（内核版本号、硬件架构
 >
 > - 至于仓储，就是放了一堆镜像的地方，我们可以把镜像发布到仓储中，需要的时候从仓储中拉下来就可以了。
 >
+
+
 
 ## 3、安装步骤
 
@@ -223,6 +235,8 @@ uname命令用于打印当前系统相关信息（内核版本号、硬件架构
 ### 3.2 CentOS 7安装Docker
 
 https://docs.docker.com/engine/install/centos/
+
+
 
 ## 4、永远的HelloWorld
 
@@ -273,22 +287,27 @@ sudo systemctl restart docker
 
 ![Docker run干了什么](https://cdn.jsdelivr.net/gh/zacharyZ-at/PicGo-repo@main/Docker%E5%AD%A6%E4%B9%A0/Docker%20run%E5%B9%B2%E4%BA%86%E4%BB%80%E4%B9%88.png)
 
+
+
 ## 5、底层原理
 
 ### 5.1 Docker是怎么工作的
 
-> Docker是一个Client-Server结构的系统，Docker守护进程运行在主机上，然后通过Socket连接从客户端访问，守护进程从客户端接受命令并管理运行在主机上的容器。**容器，是一个运行时环境，就是我们前面说到的集装箱。**
+> Docker是一个Client-Server结构的系统，Docker守护进程运行在主机上，然后通过Socket连接从客户端访问，守护进程从客户端接受命令并管理运行在主机上的容器。==容器，是一个运行时环境，就是我们前面说到的集装箱==。
 >
 
 ### 5.2 为什么Docker比VM快
 
-- docker有着比虚拟机更少的抽象层。由于docker不需要Hypervisor实现硬件资源虚拟化，运行在docker容器上的程序直接使用的都是实际物理机的硬件资源。因此在CPU、内存利用率上docker将会在效率上有明显优势。
-
-- docker利用的是宿主机的内核，而不需要Guest OS。因此，当新建一个 容器时，docker不需要和虚拟机一样重新加载一个操作系统内核仍而避免引寻、加载操作系统内核返个比较费时费资源的过程，当新建一个虚拟机时，虚拟机软件需要加载GuestOS，返个新建过程是分钟级别的。而docker由于直接利用宿主机的操作系统，则省略了返个过程，因此新建一个docker容器只需要几秒钟。
+> - docker有着比虚拟机更少的抽象层。由于docker不需要Hypervisor实现硬件资源虚拟化，运行在docker容器上的程序直接使用的都是实际物理机的硬件资源。因此在CPU、内存利用率上docker将会在效率上有明显优势。
+>
+> - docker利用的是宿主机的内核，而不需要Guest OS。因此，当新建一个 容器时，docker不需要和虚拟机一样重新加载一个操作系统内核仍而避免引寻、加载操作系统内核返个比较费时费资源的过程，当新建一个虚拟机时，虚拟机软件需要加载GuestOS，返个新建过程是分钟级别的。而docker由于直接利用宿主机的操作系统，则省略了返个过程，因此新建一个docker容器只需要几秒钟。
+>
 
 ![Docker和VM比较](https://cdn.jsdelivr.net/gh/zacharyZ-at/PicGo-repo@main/Docker%E5%AD%A6%E4%B9%A0/Docker%E5%92%8CVM%E6%AF%94%E8%BE%83.png)
 
 ---
+
+
 
 # 三、Docker常用命令
 
@@ -301,6 +320,8 @@ docker info
 
 docker --help
 ```
+
+
 
 ## 2、镜像命令
 
@@ -353,6 +374,8 @@ docker rmi -f 镜像名1:TAG 镜像名2:TAG
 删除全部
 docker rmi -f $(docker images -qa)
 ```
+
+
 
 ## 3、容器命令
 
@@ -441,6 +464,8 @@ docker rm -f $(docker ps -a -q)
 docker ps -a -q | xargs docker rm
 ```
 
+
+
 ## 4、重要容器命令
 
 ### 4.1 启动守护式容器
@@ -451,7 +476,7 @@ docker ps -a -q | xargs docker rm
 docker run -d centos
 ```
 
-> **问题**：然后docker ps -a进行查看，**会发现容器已经退出**很重要的要说明的一点：**Docker容器后台运行，就必须有一个前台进程。**容器运行的命令如果不是那些**一直挂起的命令**（比如运行top，tail），就是会自动退出的。
+> **问题**：然后docker ps -a进行查看，==会发现容器已经退出==很重要的要说明的一点：==Docker容器后台运行，就必须有一个前台进程==。容器运行的命令如果不是那些==一直挂起的命令==（比如运行top，tail），就是会自动退出的。
 >
 > 这个是docker的机制问题，比如你的web容器，我们以nginx为例，正常情况下，我们配置启动服务只需要启动响应的service即可。例如 service nginx start
 >
@@ -506,6 +531,8 @@ docker cp 容器ID:容器内路径 目的主机路径
 ```
 
 ![拷贝容器内的文件到主机](https://cdn.jsdelivr.net/gh/zacharyZ-at/PicGo-repo@main/Docker%E5%AD%A6%E4%B9%A0/%E6%8B%B7%E8%B4%9D%E5%AE%B9%E5%99%A8%E5%86%85%E7%9A%84%E6%96%87%E4%BB%B6%E5%88%B0%E4%B8%BB%E6%9C%BA.png)
+
+
 
 ## 5、小总结
 
@@ -585,23 +612,25 @@ docker cp 容器ID:容器内路径 目的主机路径
 
 ---
 
+
+
 # 四、Docker镜像
 
 ## 1、镜像是什么
 
-> 镜像是一种轻量级、可执行的独立软件包，**用来打包软件运行环境和基于运行环境开发的软件**，它包含运行某个软件所需的有内容，包括代码、运行时、库、环境变量和配置文件。
+> 镜像是一种轻量级、可执行的独立软件包，==用来打包软件运行环境和基于运行环境开发的软件==，它包含运行某个软件所需的有内容，包括代码、运行时、库、环境变量和配置文件。
 
 ### 1.1 UnionFS（联合文件系统）
 
-> UnionFS（联合文件系统）：Union文件系统（UnionFS）是一种分层、轻量级并且高性能的文件系统，它支持**对文件系统的修作为一次提交来一层层的叠加**，同时可以将不同目录挂载到同一个虚拟文件系统下（unite several directories into a singlevirtualfilesystem）。Union文件系统是Docker镜像的基础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像）可以制作各种具体的应用镜像。
+> UnionFS（联合文件系统）：Union文件系统（UnionFS）是一种分层、轻量级并且高性能的文件系统，它支持==对文件系统的修作为一次提交来一层层的叠加==，同时可以将不同目录挂载到同一个虚拟文件系统下（unite several directories into a singlevirtualfilesystem）。Union文件系统是Docker镜像的基础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像）可以制作各种具体的应用镜像。
 >
 > 特性：一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录
 
 ### 1.2 Docker镜像加载原理
 
-Docker的镜像实际上由一层一层的文件系统组成，这种层级的文件系统**UnionFS**。
+Docker的镜像实际上由一层一层的文件系统组成，这种层级的文件系统==UnionFS==。
 
-> botfs（boot file system）主要包含bootloader和kernel，bootloader主要是引导加载kernel，Linux刚启动时会加载bootfs文件系统，**在Docker镜像的最底层是bootfs**。这一层与我们典型的Linux/Unix系统是一样的，包含boot加载器和内核。当boot加载完成之 后整个内核就都在内存中了，此时内存的使用权己由bootfs转交给内核，此时系统也会卸载bootfs。
+> botfs（boot file system）主要包含bootloader和kernel，bootloader主要是引导加载kernel，Linux刚启动时会加载bootfs文件系统，==在Docker镜像的最底层是bootfs==。这一层与我们典型的Linux/Unix系统是一样的，包含boot加载器和内核。当boot加载完成之 后整个内核就都在内存中了，此时内存的使用权己由bootfs转交给内核，此时系统也会卸载bootfs。
 >
 > rootfs（root file system），在bootfs之上。包含的就是典型Linux系统中的/dev，/proc，/bin，/etc等标准目录和文件。rootfs就是各种不同的操作系统发行版，比如Ubuntu，Centos等等。
 
@@ -617,15 +646,19 @@ Docker的镜像实际上由一层一层的文件系统组成，这种层级的�
 
 ### 1.4 为什么Docker镜像要采用这种分层结构呢
 
-> 最大的一个好处就是**共享资源**。
+> 最大的一个好处就是==共享资源==。
 >
 > 比如：有多个镜像都从相同的base镜像构建而来，那么宿主机只需在磁盘上保存一份base镜像，同时内存中也只需加载一份base镜像，就可以为所有容器服务了。而且镜像的每一层都可以被共享。
+
+
 
 ## 2、特点
 
 > Docker镜像都是只读的。
 >
 > 当容器启动时，一个新的可写层被加载到镜像的顶部。这一层通常被称为“容器层”，容器层之下都叫“镜像层”。
+
+
 
 ## 3、Docker镜像commit操作补充
 
@@ -673,6 +706,8 @@ docker commit -m="tomcat without docs" -a="littlebrother" c179302506f3 personal/
 
 ---
 
+
+
 # 五、Docker容器数据卷
 
 ## 1、是什么
@@ -689,7 +724,9 @@ docker commit -m="tomcat without docs" -a="littlebrother" c179302506f3 personal/
 >
 > 
 >
-> **一句话：有点类似我们Redis里面的rdb和aof文件**。
+> **==一句话：有点类似我们Redis里面的rdb和aof文件==**。
+
+
 
 ## 2、能干嘛
 
@@ -712,6 +749,8 @@ docker commit -m="tomcat without docs" -a="littlebrother" c179302506f3 personal/
 > 3：数据卷中的更改不会包含在镜像的更新中。
 >
 > 4：数据卷的生命周期一直持续到没有容器使用它为止。
+
+
 
 ## 3、数据卷
 
@@ -771,7 +810,7 @@ docker run -it -v /myDataVolume:/dataVolumeContainer:ro centos
 >
 > 新建一个Dockerfile文件
 >
-> ```
+> ```dockerfile
 > vim Dockerfile
 > 
 > 写入以下内容：
@@ -796,7 +835,7 @@ docker run -it -v /myDataVolume:/dataVolumeContainer:ro centos
 >
 > ![Dockerfile创建镜像](https://cdn.jsdelivr.net/gh/zacharyZ-at/PicGo-repo@main/Docker%E5%AD%A6%E4%B9%A0/Dockerfile%E5%88%9B%E5%BB%BA%E9%95%9C%E5%83%8F.png)
 >
-> 注：新镜像名字不要有大写字母，明明空间后面有个**点**。
+> 注：新镜像名字不要有大写字母，明明空间后面有个==点（.）==。
 >
 > 
 >
@@ -814,17 +853,19 @@ docker run -it -v /myDataVolume:/dataVolumeContainer:ro centos
 >
 > ![Dockerfile创建运行的容器详细信息](https://cdn.jsdelivr.net/gh/zacharyZ-at/PicGo-repo@main/Docker%E5%AD%A6%E4%B9%A0/Dockerfile%E5%88%9B%E5%BB%BA%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.png)
 >
-> 在详细信息的Mounts属性下的Source即为宿主机的对应地址。
+> 在详细信息的`Mounts`属性下的`Source`即为宿主机的对应地址。
 
 ### 3.3 备注
 
-> Docker挂载主机目录Docker访问出现cannot open directory .: Permission denied
+> Docker挂载主机目录Docker访问出现 `cannot open directory .: Permission denied`
 >
-> 解决办法：在挂载目录后多加一个--privileged=true参数即可
+> 解决办法：在挂载目录后多加一个 `--privileged=true`参数即可
 >
 > ```
 > docker run -it -v /myDataVolume:/dataVolumeContainer --privileged=true centos
 > ```
+
+
 
 ## 4、数据卷容器
 
@@ -846,21 +887,268 @@ docker run -it -v /myDataVolume:/dataVolumeContainer:ro centos
 
 ### 4.3 容器间传递共享（--volumes-from）
 
-
-
-
+> 1、先启动一个父容器dc01
+>
+> ```
+> docker run -it --name dc01 zsz/centos
+> ```
+>
+> 在dataVolumeContainer2新增文件dc01_add.txt
+>
+> 
+>
+> 2、dc02/dc03继承自dc01，doc02、doc03分别在dataVolumeContainer2各自添加一个文件dc02_add.txt、dc03_add.txt
+>
+> ```
+> docker run -it --name dc02 --volumes-from dc01 zsz/centos
+> docker run -it --name dc03 --volumes-from dc01 zsz/centos
+> ```
+>
+> 
+>
+> 3、回到dc01可以看到02和03各自添加的都能共享了
+>
+> 
+>
+> 4、删除dc01，dc02修改后dc03是否还能访问
+>
+> 可以访问，可以正常读写操作。
+>
+> 
+>
+> 5、删除dc02后，dc03可否访问
+>
+> 可以访问，可以正常读写操作。
+>
+> 
+>
+> 6、新建dc04继承dc03后再删除dc03
+>
+> 都可以访问，可以正常读写操作。
+>
+> 
+>
+> 7、结论；容器之间配置信息的传递，数据卷的生命周期一直持续到没有容器使用它为止。
 
 ---
+
+
 
 # 六、Dockerfile解析
 
+## 1、是什么
+
+### 1.1 Dockerfile是用来构建Docker镜像的构建文件，由一系列命令和参数构成的脚本。
+
+### 1.2 构建三步骤
+
+> - 编写Dockerfile文件
+> - docker build
+> - docker run
+>
+
+### 1.3 文件什么样？
+
+以我们熟悉的centos为例
+
+```dockerfile
+FROM scratch
+ADD centos-8-x86_64.tar.xz /
+LABEL org.label-schema.schema-version="1.0" \
+org.label-schema.name="CentOS Base Image" \
+org.label-schema.vendor="CentOS" \
+org.label-schema.license="GPLv2" \
+org.label-schema.build-date="20201204"
+CMD ["/bin/bash"]
+```
 
 
 
+## 2、Dockerfile构建过程解析
+
+### 2.1 Dockerfile内容基础知识
+
+> 1. 每条保留字指令都必须为**大写字母**且后面要跟随**至少一个参数**
+> 2. 指令按照从上到下，顺序执行
+> 3. #表示注释
+> 4. 每条指令都会创建一个新的镜像层，并对镜像进行提交
+
+### 2.2 Docker执行Dockerfile的大致流程
+
+> 1. docker从基础镜像运行一个容器
+> 2. 执行一条指令并对容器做出修改
+> 3. 执行类似docker commit的操作提交一个新的镜像层
+> 4. docker再基于刚提交的镜像运行一个新容器
+> 5. 执行dockerfile中的下一条指令直到所有指令都执行完成
+
+### 2.3 小总结
+
+> 从应用软件的角度来看，Dockerfile、Docker镜像与Docker容器分别代表软件的三个不同阶段。
+>
+> - Dockerfile是软件的原材料
+> - Docker镜像是软件的交付品
+> - Docker容器则可以认为是软件的运行态
+>
+> Dockerfile面向开发，Docker镜像成为交付标准，Docker容器则涉及部署与运维，三者缺一不可，合力充当Docker体系的基石。
+
+
+
+## 3、Dockerfile体系结构（保留字指令）
+
+### 3.1 FROM
+
+> 基础镜像，当前镜像是基于哪个镜像的。最原始的是scratch。
+
+### 3.2 MAINTAINER
+
+> 镜像维护者的姓名和邮箱地址。
+
+### 3.3 RUN
+
+> 容器构建时需要运行的命令。
+
+### 3.4 EXPOSE
+
+> 当前容器对外暴露出的端口号。
+
+### 3.5 WORKDIR
+
+> 指定在创建容器后，终端默认登录的进来工作目录，一个落脚点。
+>
+
+### 3.6 ENV
+
+> 用来在构建镜像过程中设置环境变量。
+>
+> 
+>
+> `ENV MY_PATH /usr/mytest`
+>
+> 这个环境变量可以在后续的任何RUN指令中使用，就如同在命令前面指定了环境变量前缀一样；也可以在其它指令中直接使用这些环境变量。如：`WORKDIR $MY_PATH`
+
+### 3.7 ADD
+
+> 将宿主机目录下的文件拷贝进镜像且ADD命令会自动处理URL和解压tar压缩包。
+
+### 3.8 COPY
+
+> 类似ADD，拷贝文件和目录到镜像中。
+>
+> 将从构建上下文目录中<源路径>的文件或目录复制到新的一层的镜像内的<目标路径>位置。有如下两种写法：
+>
+> ```dockerfile
+> COPY src dest
+> COPY ["src","dest"]
+> ```
+
+### 3.9 VOLUME
+
+> 容器数据卷，用于数据保存和持久化工作。
+>
+
+### 3.10 CMD
+
+> 指定一个容器启动时要运行的命令。
+>
+> Dockerfile中可以有多个CMD指令，但==最终只有最后一个生效==，CMD==会被`docker run`之后的参数替换==。
+
+![CMD容器启动命令](https://cdn.jsdelivr.net/gh/zacharyZ-at/PicGo-repo@main/Docker%E5%AD%A6%E4%B9%A0/CMD%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4.png)  />
+
+### 3.11 ENTRYPOINT
+
+> 指定一个容器启动时要运行的命令。
+>
+> ENTRYPOINT的目的和CMD一样，都是在指定容器启动程序及参数。ENTRYPOINT==不会被`docker run`之后的参数替换，而是追加==。
+
+### 3.12 ONBUILD
+
+> 当构建一个被继承的Dockerfile时运行命令，父镜像在被子继承后父镜像的onbuild被触发。
+>
+
+### 3.13 Dockerfile命令小总结
+
+![Dockerfile命令小总结](https://cdn.jsdelivr.net/gh/zacharyZ-at/PicGo-repo@main/Docker%E5%AD%A6%E4%B9%A0/Dockerfile%E5%91%BD%E4%BB%A4%E5%B0%8F%E6%80%BB%E7%BB%93.png)
+
+## 4、案例
+
+### 4.1 Base镜像（scratch）
+
+> Docker Hub中99%的镜像都是通过在base镜像中安装和配置需要的软件构建出来的。
+
+### 4.2 自定义镜像mycentos
+
+#### 4.2.1 编写
+
+> myCentOS内容Dockerfile，需要进入后的目录为/tmp，可以使用vim和ifconfig命令。
+>
+> ```dockerfile
+> FROM centos
+> ENV MYPATH /tmp
+> WORKDIR $MYPATH
+> RUN yum -y install vim
+> RUN yum -y install net-tools
+> EXPOSE 80
+> CMD echo $MYPATH
+> CMD echo "build success!----------[OK]"
+> CMD /bin/bash
+> ```
+
+#### 4.2.2 构建
+
+```shell
+docker build -f /mydocker/Dockerfile2 -t mycentos:1.3 .
+```
+
+#### 4.2.3 运行
+
+```
+docker run -it mycentos:1.3
+```
+
+#### 4.2.4 列出镜像的变更历史
+
+```
+docker history 镜像名
+docker history mycentos
+```
+
+![查看镜像历史命令](https://cdn.jsdelivr.net/gh/zacharyZ-at/PicGo-repo@main/Docker%E5%AD%A6%E4%B9%A0/%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F%E5%8E%86%E5%8F%B2%E5%91%BD%E4%BB%A4.png)
+
+### 4.3 CMD/ENTRYPOINT镜像案例
+
+都是指定一个容器启动时要运行的命令。
+
+#### 4.3.1 CMD
+
+> Dockerfile中可以有多个CMD指令，但==最终只有最后一个生效==，CMD==会被`docker run`之后的参数替换==。
+>
+> 
+>
+> tomcat讲解演示：
+>
+> ```
+> docker run -it tomcat ls -l
+> ```
+>
+> 则tomcat容器进入后即退出，因为没有前台程序运行。`ls -l`的命令覆盖了`CMD ["catalina.sh" "run"]`命令。
+
+#### 4.3.2 ENTRYPOINT
+
+> docker run之后的参数会被当做参数传递给ENTRYPOINT，之后形成新的命令组合。
+>
+> 
+>
+> 案例
+
+
+
+## 5、小总结
 
 
 
 ---
+
+
 
 # 七、Docker常用安装
 
@@ -871,5 +1159,7 @@ docker run -it -v /myDataVolume:/dataVolumeContainer:ro centos
 
 
 ---
+
+
 
 # 八、本地镜像发布到阿里云
